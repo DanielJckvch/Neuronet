@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>d855f1ba-9c4a-4abd-bed0-866473e1502f</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Neuronet.py</StartupFile>
+    <StartupFile>Neuronet_on_torch.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,7 +21,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Neuronet.py" />
+    <Compile Include="Neuronet_on_NumPy.py" />
+    <Compile Include="Neuronet_on_torch.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
