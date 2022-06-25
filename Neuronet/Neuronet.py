@@ -84,13 +84,13 @@ class neuronet():
             self.backward(train_arr1, out)
             self.changeW(1.2)
             out = self.forward(in_arr2)
-            self.backward(train_arr1, out)
+            self.backward(train_arr2, out)
             self.changeW(1.2)
             #print("%d once ", i)
             #print(out)
         print(self.forward(in_arr1))
         print(self.forward(in_arr2))
-        #print(self.forward(np.array([1,1,1,0,0,1,0,0])))
+        print(self.forward(np.array([1,1,1,1,1,1,1,1])))
         
 
     def changeW(self, alpha):
