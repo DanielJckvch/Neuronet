@@ -9,9 +9,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 haveModel = 1
-num_epochs = 2 
+num_epochs = 4 
 num_classes = 10 
-batch_size = 50 
+batch_size = 100 
 learning_rate = 0.001
 TRAIN_DATA_PATH = 'D:\\Программы\\Нейросеть к учебной практике\\CIFAR-10 dataset'
 MODEL_STORE_PATH = 'D:\\Программы\\Нейросеть к учебной практике\\Model\\'
@@ -19,11 +19,13 @@ MODEL_STORE_PATH = 'D:\\Программы\\Нейросеть к учебной
 class ConvNet(nn.Module): 
      def __init__(self): 
          super(ConvNet, self).__init__() 
-         self.layer1 = nn.Sequential(nn.Conv2d(3, 18, kernel_size=5, stride=1, padding=2), nn.ReLU(), nn.MaxPool2d(kernel_size=2, stride=2)) 
-         self.layer2 = nn.Sequential(nn.Conv2d(18, 36, kernel_size=5, stride=1, padding=2), nn.ReLU(), nn.MaxPool2d(kernel_size=2, stride=2)) 
+         self.layer1 = nn.Sequential(nn.Conv2d(3, 30, kernel_size=5, stride=1, padding=2), nn.ReLU(), nn.MaxPool2d(kernel_size=2, stride=2)) 
+         self.layer2 = nn.Sequential(nn.Conv2d(30, 60, kernel_size=5, stride=1, padding=2), nn.ReLU(), nn.MaxPool2d(kernel_size=2, stride=2)) 
          self.drop_out = nn.Dropout() 
-         self.fc1 = nn.Linear(8 * 8 * 36, 800) 
-         self.fc2 = nn.Linear(800, 10)
+         self.fc1 = nn.Linear(8 * 8 * 60, 1000) 
+         self.fc2 = nn.Linear(1000, 500)
+         self.fc3 = nn.Linear(500, 100)
+         self.fc4 = nn.Linear(100, 10)
      def forward(self, x): 
          out = self.layer1(x) 
          out = self.layer2(out) 
@@ -31,6 +33,8 @@ class ConvNet(nn.Module):
          out = self.drop_out(out) 
          out = self.fc1(out) 
          out = self.fc2(out) 
+         out = self.fc3(out) 
+         out = self.fc4(out) 
          return out
 
 
@@ -45,24 +49,14 @@ test_image = np.transpose(test_image, (2,0,1))
 test_image = tch.Tensor(test_image)
 test_image /= 255
 test_image = test_image.reshape(1,3,32,32)
-#npimg = test_image.numpy()
-#plt.imshow(np.transpose(npimg[0], (1, 2, 0)), cmap=plt.get_cmap('gray'))
-#plt.show()
 test_image -= 0.1307
 test_image /= 0.3081
 
-#test_image1 = test_image*0.3081+0.1307
-
 test_label = tch.Tensor([3])
-#test_image = np.asarray(test_image, dtype='uint8')
 
 #Создание итератора данных
 test_image = TensorDataset(test_image,test_label)
 test_loader = DataLoader(test_image, batch_size=1, num_workers=0, shuffle=False)
-
-#test_image = test_image.view(-1,1,32,32)
-
-
 
 model = ConvNet()
 if (haveModel==0):
@@ -71,11 +65,9 @@ if (haveModel==0):
     trans = tv.transforms.Compose([tv.transforms.ToTensor(), tv.transforms.Normalize((0.1307,), (0.3081,))]) 
     train_dataset = tv.datasets.CIFAR10(root=TRAIN_DATA_PATH, train=True, transform=trans, download=True) 
     train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size,shuffle=True) 
-#test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
     #Определение функции потерь
     criterion = nn.CrossEntropyLoss()
     optimizer = tch.optim.Adam(model.parameters(), lr=learning_rate)
-
     #Тренировка сети
     total_step = len(train_loader)
     loss_list = []
@@ -107,15 +99,6 @@ else:
     model.load_state_dict(tch.load(MODEL_STORE_PATH+'nn_model.pth'))
     model.eval()
     #Определение класса изображения
-    #
-    #dataiter = iter(train_loader)
-    #img, label = dataiter.next()
-    #img *=0.3081
-    #img +=0.1307
-    #img = img.numpy()
-
-    #plt.imshow(np.transpose(img[0], (1, 2, 0)), cmap=plt.get_cmap('gray'))
-    #plt.show()
     for i, (images, labels) in enumerate(test_loader):
         #images *=0.3081
         #images +=0.1307
@@ -129,4 +112,4 @@ else:
         print('Yes')
     else:
         print('No')
-
+#'plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck'
