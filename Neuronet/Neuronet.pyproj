@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>d855f1ba-9c4a-4abd-bed0-866473e1502f</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Neuronet_on_torch.py</StartupFile>
+    <StartupFile>Neuronet_on_TensorFlow.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Neuronet_on_NumPy.py" />
+    <Compile Include="Neuronet_on_TensorFlow.py" />
     <Compile Include="Neuronet_on_torch.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

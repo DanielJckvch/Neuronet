@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 haveModel = 1
-num_epochs = 4 
+num_epochs = 30 
 num_classes = 10 
 batch_size = 100 
 learning_rate = 0.001
