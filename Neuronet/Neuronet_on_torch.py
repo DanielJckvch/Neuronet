@@ -109,7 +109,7 @@ else:
         _, predicted = tch.max(outputs.data, 1)
         break
     if (predicted == labels):
-        print('Yes')
+        print('There is a cat on the picture')
     else:
-        print('No')
+        print('There is no cat on the picture')
 #'plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck'
