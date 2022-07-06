@@ -6,8 +6,6 @@ from tensorflow.keras import layers
 from tensorflow.keras.models import Sequential
 import matplotlib.pyplot as plt
 #Запрет на вывод предупреждений
-import warnings 
-warnings.filterwarnings('ignore')
 
 
 batch_size = 32#Размер партии при обучении
@@ -20,7 +18,7 @@ epochs = 15#Число эпох обучения
 #IMAGE_PATH = 'D:\\Программы\\Нейросеть к учебной практике\\Neuronet\\Neuronet\\image.jpg'
 
 #Выбор режима работы с сетью
-have_model = int(input('Enter mode: 0-training, other-image chekcing: '))
+have_model = int(input('Enter mode: 0-training, other-image checking: '))
 
 
 if (have_model == 0):#Обучение
